@@ -10,20 +10,19 @@ public class PaymentNote {
     }
 
     public double quantityOfHours() {
-        Duration duration = Duration.between(rentCar.getStart(), rentCar.getFinish());
-        double minutes = duration.toMinutes();
+        double minutes = Duration.between(rentCar.getStart(), rentCar.getFinish()).toMinutes();
         return Math.ceil(minutes / 60);
     }
 
-    public double basicPayment() {
+    private double basicPayment() {
         double hours = quantityOfHours();
         if (hours > rentCar.getFixedTime()) {
-            return rentCar.getDailyValue() * hours;
+            return rentCar.getDailyValue() * Math.ceil(hours / 24);
         }
         return rentCar.getHourlyRate() * hours;
     }
 
-    public double taxPayment() {
+    private double taxPayment() {
         double basic = basicPayment();
         if(basic > 100) {
            return basic * 0.15;
