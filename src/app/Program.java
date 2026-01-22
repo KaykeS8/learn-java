@@ -1,50 +1,41 @@
 package app;
 
-import model.entities.CarRental;
-import model.entities.Vehicle;
-import model.services.BrazilTaxService;
-import model.services.RentalService;
+import entities.Contract;
+import services.ContractService;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.Scanner;
 
 public class Program {
     public static void main(String[] args) {
+
         Locale.setDefault(Locale.US);
-
         Scanner sc = new Scanner(System.in);
-        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-        System.out.println("Entre com os dados do aluguel");
+        System.out.println("Entre os dados do contrato: ");
 
-        System.out.print("Modelo do carro: ");
-        String carModel = sc.nextLine();
+        System.out.print("Numero: ");
+        int number = sc.nextInt();
+        sc.nextLine();
 
-        System.out.print("Retirada (dd/MM/yyyy HH:mm): ");
-        LocalDateTime start = LocalDateTime.parse(sc.nextLine(), fmt);
+        System.out.print("Data (dd/MM/yyyy): ");
+        LocalDate data = LocalDate.parse(sc.nextLine(), fmt);
 
-        System.out.print("Retorno (dd/MM/yyyy HH:mm): ");
-        LocalDateTime finish = LocalDateTime.parse(sc.nextLine(), fmt);
+        System.out.print("Valor do contrato: ");
+        double valueOfContract = sc.nextDouble();
 
-        CarRental cr = new CarRental(start, finish, new Vehicle(carModel));
+        System.out.print("Entre com o numero de parcelas: ");
+        int numberOfInstallments = sc.nextInt();
 
-        System.out.print("Entre com o preço por hora: ");
-        double pricePerHour = sc.nextDouble();
-        System.out.print("Entre com o preço por dia: ");
-        double pricePerDay = sc.nextDouble();
+        Contract contract = new Contract(number, data, valueOfContract);
+        ContractService service = new ContractService();
 
-        RentalService rentalService = new RentalService(pricePerDay, pricePerHour, new BrazilTaxService());
-
-        rentalService.processInvoice(cr);
-
-        System.out.println("FATURA:");
-        System.out.println("Pagamento basico: " + String.format("%.2f", cr.getInvoice().getBasicPayment()));
-        System.out.println("Imposto: " + String.format("%.2f", cr.getInvoice().getTax()));
-        System.out.println("Pagamento total: " + String.format("%.2f", cr.getInvoice().getTotalPayment()));
+        System.out.println("PARCELAS: ");
+        service.processContract(contract, numberOfInstallments);
 
         sc.close();
     }
 }
-
