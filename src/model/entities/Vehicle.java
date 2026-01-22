@@ -1,7 +1,9 @@
-package entities;
+package model.entities;
 
 public class Vehicle {
-    private final String model;
+    private String model;
+
+    public Vehicle(){}
 
     public Vehicle(String model) {
         this.model = model;
@@ -9,5 +11,9 @@ public class Vehicle {
 
     public String getModel() {
         return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
     }
 }
