@@ -2,6 +2,8 @@ package app;
 
 import entities.Contract;
 import services.ContractService;
+import services.OnlinePaymentService;
+import services.PaypalService;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -34,7 +36,7 @@ public class Program {
         ContractService service = new ContractService();
 
         System.out.println("PARCELAS: ");
-        service.processContract(contract, numberOfInstallments);
+        service.processContract(contract, numberOfInstallments, new PaypalService());
 
         sc.close();
     }
