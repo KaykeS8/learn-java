@@ -12,11 +12,10 @@ public class ContractService {
 
     public ContractService(){}
 
-    public void processContract(Contract contract, int months) {
+    public void processContract(Contract contract, int months, OnlinePaymentService service) {
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         List<Installment> installments = new ArrayList<>();
 
-        OnlinePaymentService service = new PaypalService();
         double installmentValue = contract.getTotalValue() / months;
 
         for (int i = 0; i < months; i++) {
