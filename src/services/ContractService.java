@@ -18,7 +18,6 @@ public class ContractService {
 
     public void processContract(Contract contract, int months) {
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        List<Installment> installments = new ArrayList<>();
 
         double installmentValue = contract.getTotalValue() / months;
 
@@ -27,10 +26,8 @@ public class ContractService {
             double invoiceValue = service.paymentFee(installmentValue+fees);
 
             LocalDate data = contract.getDate().plusMonths(i + 1);
-            installments.add(new Installment(data, invoiceValue));
+            contract.getInstallments().add(new Installment(data, invoiceValue));
         }
-
-        contract.setInstallments(installments);
 
         for (Installment installment : contract.getInstallments()) {
             System.out.println(installment);
