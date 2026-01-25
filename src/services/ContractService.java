@@ -19,15 +19,14 @@ public class ContractService {
 
         double installmentValue = contract.getTotalValue() / months;
 
-        for (int i = 0; i < months; i++) {
-            double fees = service.interest(installmentValue, i+1);
+        for (int i = 1; i <= months; i++) {
+            double fees = service.interest(installmentValue, i);
             double invoiceValue = service.paymentFee(installmentValue+fees);
 
-            LocalDate data = contract.getDate().plusMonths(i + 1);
+            LocalDate data = contract.getDate().plusMonths(i);
             contract.getInstallments().add(new Installment(data, invoiceValue));
         }
-
-        for (Installment installment : contract.getInstallments()) {
+;        for (Installment installment : contract.getInstallments()) {
             System.out.println(installment);
         }
     }
