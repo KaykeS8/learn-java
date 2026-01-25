@@ -33,10 +33,10 @@ public class Program {
         int numberOfInstallments = sc.nextInt();
 
         Contract contract = new Contract(number, data, valueOfContract);
-        ContractService service = new ContractService();
+        ContractService contractService = new ContractService(new PaypalService());
 
         System.out.println("PARCELAS: ");
-        service.processContract(contract, numberOfInstallments, new PaypalService());
+        contractService.processContract(contract, numberOfInstallments);
 
         sc.close();
     }

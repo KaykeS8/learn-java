@@ -10,9 +10,13 @@ import java.util.List;
 
 public class ContractService {
 
-    public ContractService(){}
+    private final OnlinePaymentService service;
 
-    public void processContract(Contract contract, int months, OnlinePaymentService service) {
+    public ContractService(OnlinePaymentService service){
+        this.service = service;
+    }
+
+    public void processContract(Contract contract, int months) {
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         List<Installment> installments = new ArrayList<>();
 
