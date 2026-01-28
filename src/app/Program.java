@@ -1,43 +1,16 @@
 package app;
 
-import entities.Contract;
-import services.ContractService;
-import services.OnlinePaymentService;
-import services.PaypalService;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Locale;
-import java.util.Scanner;
+import entities.AbstractShape;
+import entities.Color;
+import entities.Shape;
+import entities.Square;
 
 public class Program {
     public static void main(String[] args) {
+        Shape shape = new Square(Color.WHITE);
+        AbstractShape shape2 = new Square(Color.BLACK);
 
-        Locale.setDefault(Locale.US);
-        Scanner sc = new Scanner(System.in);
-        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
-        System.out.println("Entre os dados do contrato: ");
-
-        System.out.print("Numero: ");
-        int number = sc.nextInt();
-        sc.nextLine();
-
-        System.out.print("Data (dd/MM/yyyy): ");
-        LocalDate data = LocalDate.parse(sc.nextLine(), fmt);
-
-        System.out.print("Valor do contrato: ");
-        double valueOfContract = sc.nextDouble();
-
-        System.out.print("Entre com o numero de parcelas: ");
-        int numberOfInstallments = sc.nextInt();
-
-        Contract contract = new Contract(number, data, valueOfContract);
-        ContractService contractService = new ContractService(new PaypalService());
-
-        System.out.println("PARCELAS: ");
-        contractService.processContract(contract, numberOfInstallments);
-
-        sc.close();
+        System.out.println(shape2.area()); // Don't have access about color
+        System.out.println(shape2.getColor()); // have access color because is abstractShape
     }
 }
