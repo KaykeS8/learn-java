@@ -1,16 +1,31 @@
 package app;
 
-import entities.AbstractShape;
-import entities.Color;
-import entities.Shape;
-import entities.Square;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Program {
     public static void main(String[] args) {
-        Shape shape = new Square(Color.WHITE);
-        AbstractShape shape2 = new Square(Color.BLACK);
+        List<Integer> myInts = Arrays.asList(1,2,3,4);
+        List<Double> myDoubles = Arrays.asList(3.14, 6.28);
+        List<Object> myObjs = new ArrayList<>();
 
-        System.out.println(shape2.area()); // Don't have access about color
-        System.out.println(shape2.getColor()); // have access color because is abstractShape
+        copy(myInts, myObjs);
+        printList(myObjs);
+        copy(myDoubles, myObjs);
+        printList(myObjs);
+    }
+
+    public static void copy(List<? extends Number> source, List<? super Number> destiny) {
+        for (Number number : source) {
+           destiny.add(number);
+        }
+    }
+
+    public static void printList(List<?> lista) {
+        for (Object el : lista){
+            System.out.print(el + " ");
+        }
+        System.out.println();
     }
 }
