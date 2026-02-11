@@ -1,18 +1,29 @@
 package app;
 
-import entities.Client;
+import entities.Student;
+
+import java.util.HashSet;
+import java.util.Set;
+import java.util.Scanner;
 
 public class Program {
     public static void main(String[] args) {
-        Client client1 = new Client("ana", "ana.simao@gmail.com");
-        Client client2 = new Client("ana", "ana.simao@gmail.com");
-//        Client client2 = new Client("joao", "joao.simao@gmail.com");
+        Scanner sc = new Scanner(System.in);
 
+        Set<Student> set = new HashSet<>();
+        String text = "How many students for course ";
 
-        System.out.println(client1.hashCode());
-        System.out.println(client2.hashCode());
-        System.out.println("----------------");
-        System.out.println(client1.equals(client2));
+        String[] courses = {"A", "B", "C"};
+        for (String letter : courses) {
+            System.out.print(text + letter + "?");
+            int quantityOfStudents = sc.nextInt();
+            for (int i = 1; i <= quantityOfStudents; i++) {
+                int code = sc.nextInt();
+                set.add(new Student(code));
+            }
+        }
+
+        System.out.println("Total students: " + set.size());
 
     }
 }
