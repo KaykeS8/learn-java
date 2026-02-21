@@ -1,29 +1,28 @@
 package app;
 
-import entities.Student;
+import entities.Product;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.Scanner;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Program {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+        Map<Product, Integer> stock = new HashMap<>();
 
-        Set<Student> set = new HashSet<>();
-        String text = "How many students for course ";
+        Product p1 = new Product("TV", 1600.0);
+        Product p2 = new Product("Tablet", 900.0);
+        Product p3 = new Product("Smartphone", 3499.0);
 
-        String[] courses = {"A", "B", "C"};
-        for (String letter : courses) {
-            System.out.print(text + letter + "?");
-            int quantityOfStudents = sc.nextInt();
-            for (int i = 1; i <= quantityOfStudents; i++) {
-                int code = sc.nextInt();
-                set.add(new Student(code));
-            }
-        }
+        stock.put(p1, 20);
+        stock.put(p2, 8);
+        stock.put(p3, 14);
 
-        System.out.println("Total students: " + set.size());
+        System.out.println(stock);
+
+        Product ps = new Product("TV", 1600.0);
+        System.out.println("Contains 'ps' key: " + stock.containsKey(ps));
+        System.out.println(stock);
+
 
     }
 }
