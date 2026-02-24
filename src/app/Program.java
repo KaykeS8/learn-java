@@ -1,43 +1,27 @@
 package app;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Scanner;
+import entities.Product;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 
 public class Program {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+        List<Product> products = new ArrayList<>();
 
-        System.out.print("Enter file full path: ");
-        String file = sc.nextLine();
-        Map<String, Integer> votes = new LinkedHashMap<>();
+        products.add(new Product("Tv", 1800.0));
+        products.add(new Product("Armadilha", 1800.0));
+        products.add(new Product("Boneco", 1800.0));
+        products.add(new Product("Notebook", 1200.0));
+        products.add(new Product("Smartphone", 800.0));
 
-        try (sc; BufferedReader bf = new BufferedReader(new FileReader(file))) {
-            String line = bf.readLine();
-            while (line != null)  {
+        products.sort(Comparator.comparing(Product::getName));
 
-                String[] fields = line.split(",");
-                String name = fields[0];
-                int count = Integer.parseInt(fields[1]);
 
-                if (votes.containsKey(name)) {
-                    int votesSoFar = votes.get(name);
-                    votes.put(name, count + votesSoFar);
-                } else {
-                    votes.put(name, count);
-                }
-                line = bf.readLine();
-            }
-
-            for (String key : votes.keySet()) {
-                System.out.println(key + ": " + votes.get(key));
-            }
-
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
+        for (Product p : products) {
+            System.out.println(p);
         }
+
     }
 }
